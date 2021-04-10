@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
         - name: auth
-          image: sgrujic/auth
+          image: eu.gcr.io/ticketing-dev-310210/auth
 ---
 apiVersion: v1
 kind: Service

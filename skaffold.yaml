@@ -7,8 +7,6 @@ deploy:
 build:
   local:
     push: false
-  # googleCloudBuild:
-  #   projectId: ticketing-dev-310210
   artifacts:
     - image: sgrujic/auth
       context: auth

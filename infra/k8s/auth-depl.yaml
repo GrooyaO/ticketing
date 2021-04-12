@@ -14,7 +14,6 @@ spec:
     spec:
       containers:
         - name: auth
-          # image: eu.gcr.io/ticketing-dev-310210/auth
           image: sgrujic/auth
 ---
 apiVersion: v1

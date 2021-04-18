@@ -33,13 +33,14 @@ router.post(
 
     const user = User.build({ email, password });
     await user.save();
+
     //after user is created generate JWT
     const userJwt = jwt.sign(
       {
         id: user.id,
         email: user.email,
       },
-      'asdf'
+      process.env.JWT_KEY!
     );
 
     //store in session obj

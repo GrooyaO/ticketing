@@ -1,8 +1,6 @@
-import { setConfig } from './.next/static/chunks/main';
-
-module.epxorts = {
+module.exports = {
   webpackDevMiddleware: (config) => {
-    setConfig.watchOptions.poll = 300;
+    config.watchOptions.poll = 300;
     return config;
   },
 };

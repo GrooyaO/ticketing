@@ -1,5 +1,5 @@
-import { Publisher, OrderCancelledEvent, Subjects } from '@grooyatickets/common';
+import { Publisher, OrderCreatedEvent, Subjects } from '@grooyatickets/common';
 
-export class OrderCancelledPublisher extends Publisher<OrderCancelledEvent> {
-  readonly subject = Subjects.OrderCancelled;
+export class OrderCreatedPublisher extends Publisher<OrderCreatedEvent> {
+  readonly subject = Subjects.OrderCreated;
 }

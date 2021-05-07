@@ -1,6 +1,8 @@
 import mongoose from 'mongoose';
 import { OrderStatus } from '@grooyatickets/common';
-export { TicketDoc } from './ticket';
+import { TicketDoc } from './ticket';
+
+export { OrderStatus };
 
 interface OrderAttrs {
   userId: string;

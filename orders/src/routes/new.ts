@@ -1,9 +1,18 @@
 import mongoose from 'mongoose';
 import express, { Request, Response } from 'express';
-import { validateRequest, requireAuth } from '@grooyatickets/common';
+import {
+  validateRequest,
+  requireAuth,
+  NotFoundError,
+  BadRequestError,
+  OrderStatus,
+} from '@grooyatickets/common';
 import { body } from 'express-validator';
+import { Ticket } from '../models/ticket';
+import { Order } from '../models/order';
 
 const router = express.Router();
+const EXPIRATION_WINDOW_SECONDS = 3 * 60;
 
 router.post(
   '/api/orders',
@@ -17,7 +26,41 @@ router.post(
   ],
   validateRequest,
   async (req: Request, res: Response) => {
-    res.send({});
+    const { ticketId } = req.body;
+    //try to find ticket the user is  trying to add to order
+
+    const ticket = await Ticket.findById(ticketId);
+    if (!ticket) {
+      throw new NotFoundError();
+    }
+    //make sure/check if ticket is reserved
+
+    const isReserved = await ticket.isReserved();
+    if (isReserved) {
+      throw new BadRequestError(
+        'Ticket is already reserved. Please try again in couple of minutes!'
+      );
+      throw new NotFoundError();
+    }
+
+    //Calculate an expiration date for order
+
+    const expiration = new Date();
+    expiration.setSeconds(expiration.getSeconds() + EXPIRATION_WINDOW_SECONDS);
+
+    //build,save order to db
+
+    const order = Order.build({
+      userId: req.currentUser!.id,
+      status: OrderStatus.Created,
+      expiresAt: expiration,
+      ticket,
+    });
+
+    await order.save();
+
+    //publish an event saying that order was created
+    res.status(201).send(order);
   }
 );
 

@@ -6,6 +6,7 @@ import {
   requireAuth,
   NotFoundError,
   NotAuthorizedError,
+  BadRequestError,
 } from '@grooyatickets/common';
 import { Ticket } from '../models/ticket';
 import { TicketUpdatedPublisher } from '../events/publishers/ticket-updated-publisher';
@@ -28,6 +29,10 @@ router.put(
 
     if (!ticket) {
       throw new NotFoundError();
+    }
+
+    if (ticket.orderId) {
+      throw new BadRequestError('Ticket already reserved. Please try again later.');
     }
 
     if (ticket.userId !== req.currentUser!.id) {

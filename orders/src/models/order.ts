@@ -1,6 +1,7 @@
 import mongoose from 'mongoose';
 import { OrderStatus } from '@grooyatickets/common';
 import { TicketDoc } from './ticket';
+import { updateIfCurrentPlugin } from 'mongoose-update-if-current';
 
 export { OrderStatus };
 
@@ -54,13 +55,14 @@ const orderSchema = new mongoose.Schema(
 );
 
 orderSchema.set('versionKey', 'version');
-//ticketSchema.plugin(updateIfCurrentPlugin);
-orderSchema.pre('save', function (done) {
-  this.$where = {
-    version: this.get('version') - 1,
-  };
-  done();
-});
+orderSchema.plugin(updateIfCurrentPlugin);
+
+// orderSchema.pre('save', function (done) {
+//   this.$where = {
+//     version: this.get('version') - 1,
+//   };
+//   done();
+// });
 
 orderSchema.statics.build = (attrs: OrderAttrs) => {
   return new Order(attrs);

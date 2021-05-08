@@ -9,8 +9,8 @@ it('marks an order as cancelled', async () => {
   // create a ticket with Ticket Model
   const ticket = Ticket.build({
     id: mongoose.Types.ObjectId().toHexString(),
-    title: 'rock concert',
-    price: 233,
+    title: 'concert',
+    price: 20,
   });
   await ticket.save();
 

@@ -18,7 +18,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "@grooyatickets/common": "^1.0.13",
+    "@grooyatickets/common": "^1.0.14",
     "bull": "^3.22.4",
     "mongoose-update-if-current": "^1.4.0",
     "ts-node-dev": "^1.1.6",

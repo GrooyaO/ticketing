@@ -1,4 +1,3 @@
-import * as React from 'react'
 import useRequest from '../../hooks/use-request'
 import Router from 'next/router'
 
@@ -9,7 +8,7 @@ const TicketShow = ({ ticket }) => {
     body: {
       ticketId: ticket.id,
     },
-    onSuccess: () => Router.push('/orders/[orderId]', `order/${order.id}`),
+    onSuccess: () => Router.push('/orders/[orderId]', `/orders/${order.id}`),
   })
   return (
     <div>

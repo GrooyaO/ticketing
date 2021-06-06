@@ -6,7 +6,7 @@ const NewTicket = () => {
   const [title, setTitle] = useState('')
   const [price, setPrice] = useState('')
 
-  const { doRequest, error } = useRequest({
+  const { doRequest, errors } = useRequest({
     url: '/api/tickets',
     method: 'post',
     body: {
@@ -52,7 +52,7 @@ const NewTicket = () => {
             onBlur={onBlur}
           />
         </div>
-        {error}
+        {errors}
         <button className="btn btn-primary">Submit</button>
       </form>
     </div>

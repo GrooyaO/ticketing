@@ -9,7 +9,6 @@ export default ({ req }) => {
     });
   } else {
     //browser
-
     return axios.create({
       baseURL: '/',
     });

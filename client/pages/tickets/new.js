@@ -1,9 +1,10 @@
-import { useState } from 'react';
-import useRequest from '../../hooks/use-request';
+import { useState } from 'react'
+import useRequest from '../../hooks/use-request'
+import Router from 'next/router'
 
 const NewTicket = () => {
-  const [title, setTitle] = useState('');
-  const [price, setPrice] = useState('');
+  const [title, setTitle] = useState('')
+  const [price, setPrice] = useState('')
 
   const { doRequest, error } = useRequest({
     url: '/api/tickets',
@@ -12,23 +13,23 @@ const NewTicket = () => {
       title,
       price,
     },
-    onSuccess: (ticket) => console.log(ticket),
-  });
+    onSuccess: () => Router.push('/'),
+  })
 
   function onSubmit(e) {
-    e.preventDefault();
+    e.preventDefault()
 
-    doRequest();
+    doRequest()
   }
 
   function onBlur() {
-    const value = parseFloat(price);
+    const value = parseFloat(price)
 
     if (isNaN(value)) {
-      return;
+      return
     }
 
-    setPrice(value.toFixed(2));
+    setPrice(value.toFixed(2))
   }
   return (
     <div>
@@ -55,7 +56,7 @@ const NewTicket = () => {
         <button className="btn btn-primary">Submit</button>
       </form>
     </div>
-  );
-};
+  )
+}
 
-export default NewTicket;
+export default NewTicket
